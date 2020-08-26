@@ -14,7 +14,6 @@ public class Preferences extends PreferenceActivity {
                 .commit();
     }
 
-
     public static class SMSGatePreferenceFragment extends PreferenceFragment {
         @Override
         public void onCreate(final Bundle savedInstanceState) {
