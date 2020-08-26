@@ -1,5 +1,3 @@
-// TODO: Based on settings, receive POST and send corresponding SMS.
-
 package rocks.jahn.tinysmsgate;
 
 import java.io.IOException;
