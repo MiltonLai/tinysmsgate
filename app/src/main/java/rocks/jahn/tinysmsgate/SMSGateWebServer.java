@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import android.telephony.SmsManager;
 import fi.iki.elonen.NanoHTTPD;
 
+
 public class SMSGateWebServer extends NanoHTTPD {
 	private static final String SENT = "SMS_SENT";
 	private static final String DELIVERED = "SMS_DELIVERED";
@@ -106,7 +107,7 @@ public class SMSGateWebServer extends NanoHTTPD {
 			} catch (IOException e) {
 				e.printStackTrace();
 				
-		        return new NanoHTTPD.Response(
+		        return newFixedLengthResponse(
 	        		Response.Status.INTERNAL_ERROR,
 	        		"text/html",
 	        		pageTemplate("Internal Server Error", e.getMessage())
@@ -114,7 +115,7 @@ public class SMSGateWebServer extends NanoHTTPD {
 			} catch (ResponseException e) {
 				e.printStackTrace();
 				
-		        return new NanoHTTPD.Response(
+		        return newFixedLengthResponse(
 	        		e.getStatus(),
 	        		"text/html",
 	        		pageTemplate("Internal Server Error", e.getMessage())
@@ -141,41 +142,41 @@ public class SMSGateWebServer extends NanoHTTPD {
         	        		String message = data.get("message");
         	        		sendSms(phone, message);
         	        		
-        	    	        return new NanoHTTPD.Response(
+        	    	        return newFixedLengthResponse(
     	    		        	pageTemplate("SMSgate", "Sent!")
     	    		        );
         				} else {
-        			        return new NanoHTTPD.Response(
+        			        return newFixedLengthResponse(
         			        	Response.Status.FORBIDDEN,
         			        	"text/html",
         			        	pageTemplate("Forbidden", "Bad password.")
         			        );
         				}
         			} else {
-    			        return new NanoHTTPD.Response(
+    			        return newFixedLengthResponse(
     			        	Response.Status.FORBIDDEN,
     			        	"text/html",
     			        	pageTemplate("Forbidden", "Bad password.")
     			        );
         			}
         		} else {
-	    	        return new NanoHTTPD.Response(
+	    	        return newFixedLengthResponse(
     		        	pageTemplate("SMSgate", "Sent!")
     		        );
         		}
         	} else {
-    	        return new NanoHTTPD.Response(
+    	        return newFixedLengthResponse(
 		        	Response.Status.NOT_FOUND,
 		        	"text/html",
 		        	pageTemplate("404", "Aw, man. :(")
 		        );
         	}
         } else if(uri.equals("/")) {
-	        return new NanoHTTPD.Response(
+	        return newFixedLengthResponse(
 	        	pageTemplate("SMSGate", "Welcome to SMSGate!")
 	        );
         } else {
-	        return new NanoHTTPD.Response(
+	        return newFixedLengthResponse(
 	        	Response.Status.NOT_FOUND,
 	        	"text/html",
 	        	pageTemplate("404", "Aw, man. :(")

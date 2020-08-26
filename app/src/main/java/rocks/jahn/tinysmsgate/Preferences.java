@@ -1,6 +1,5 @@
 package rocks.jahn.tinysmsgate;
 
-import rocks.jahn.smsgate.R;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;

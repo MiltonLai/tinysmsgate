@@ -1,6 +1,5 @@
 package rocks.jahn.tinysmsgate;
 
-import rocks.jahn.smsgate.R;
 import rocks.jahn.tinysmsgate.SMSGateService.SMSGateServiceBinder;
 import android.app.Activity;
 import android.content.ComponentName;
@@ -61,7 +60,6 @@ public class TinySMSGate extends Activity {
 		});
 		
 		Button btnForwarderToggle = (Button) findViewById(R.id.btnForwarderToggle);
-		
 		btnForwarderToggle.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -83,13 +81,13 @@ public class TinySMSGate extends Activity {
 			}
 			
 		});
-		
+
 		Button btnPreferences = (Button) findViewById(R.id.btnPreferences);
 		btnPreferences.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Intent preferences = new Intent("rocks.jahn.smsgate.SMSGatePreferences");
+				Intent preferences = new Intent("rocks.jahn.tinysmsgate.SMSGatePreferences");
 				startActivity(preferences);
 			}
 			
