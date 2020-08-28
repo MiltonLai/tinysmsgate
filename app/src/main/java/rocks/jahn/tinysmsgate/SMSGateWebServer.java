@@ -102,7 +102,7 @@ public class SMSGateWebServer extends NanoHTTPD {
         Method method = session.getMethod();
         String uri = session.getUri();
         Map<String, String> files = new HashMap<>();
-        
+
         if(Method.POST.equals(method)) {
             try {
                 session.parseBody(files);
@@ -136,48 +136,45 @@ public class SMSGateWebServer extends NanoHTTPD {
                             String phone = data.get("phone");
                             String message = data.get("message");
                             sendSms(phone, message);
-                            
+
                             return newFixedLengthResponse(
-                                jsonEncode("SMSgate", "Sent!")
-                            );
+                                    Response.Status.OK,
+                                    "application/json",
+                                    jsonEncode("SMSgate", "Sent!"));
                         } else {
                             return newFixedLengthResponse(
                                 Response.Status.FORBIDDEN,
                                 "application/json",
-                                jsonEncode("Forbidden", "Bad password.")
-                            );
+                                jsonEncode("Forbidden", "Bad password."));
                         }
                     } else {
                         return newFixedLengthResponse(
                             Response.Status.FORBIDDEN,
                             "application/json",
-                            jsonEncode("Forbidden", "Bad password.")
-                        );
+                            jsonEncode("Forbidden", "Bad password."));
                     }
                 } else {
                     return newFixedLengthResponse(
-                        jsonEncode("SMSgate", "Sent!")
-                    );
+                            Response.Status.OK,
+                            "application/json",
+                            jsonEncode("SMSgate", "Sent!"));
                 }
             } else {
                 return newFixedLengthResponse(
                     Response.Status.NOT_FOUND,
                     "application/json",
-                    jsonEncode("404", "Aw, man. :(")
-                );
+                    jsonEncode("404", "Aw, man. :("));
             }
         } else if(uri.equals("/")) {
             return newFixedLengthResponse(
                     Response.Status.OK,
                     "application/json",
-                    jsonEncode("SMSGate", "Welcome to SMSGate!")
-            );
+                    jsonEncode("SMSGate", "Welcome to SMSGate!"));
         } else {
             return newFixedLengthResponse(
                 Response.Status.NOT_FOUND,
                 "application/json",
-                jsonEncode("404", "Aw, man. :(")
-            );
+                jsonEncode("404", "Aw, man. :("));
         }
     }
 

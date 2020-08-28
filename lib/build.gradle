@@ -1,0 +1,10 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'commons-codec:commons-codec:1.10'
+    implementation 'org.slf4j:slf4j-api:1.7.21'
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

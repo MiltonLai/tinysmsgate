@@ -1,6 +1,9 @@
 package rocks.jahn.tinysmsgate;
 
 import rocks.jahn.tinysmsgate.SMSGateService.SMSGateServiceBinder;
+import rocks.jahn.tinysmsgate.lib.NetworkUtil;
+import rocks.jahn.tinysmsgate.lib.StringUtil;
+
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -15,6 +18,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class TinySMSGate extends Activity {
     public static final String tag = "SMSGate";
@@ -106,11 +111,9 @@ public class TinySMSGate extends Activity {
     }
     
     public void updateStatuses() {
-        String ip = Utils.getIPAddress(true);
-        String page = preferences.getString("txtPage", "POST");
-        
-        TextView txtIP = (TextView) findViewById(R.id.txtIP);
-        txtIP.setText("IP: " + ip);
+        List<String> ips = NetworkUtil.getIpAddresses();
+        TextView txtIP = findViewById(R.id.txtIP);
+        txtIP.setText("IP: " + StringUtil.implode(ips, "\n"));
         
         Button btnReceiverToggle = (Button) findViewById(R.id.btnReceiverToggle);
         Button btnForwarderToggle = (Button) findViewById(R.id.btnForwarderToggle);
@@ -129,7 +132,7 @@ public class TinySMSGate extends Activity {
             txtForwarding.setTextColor(0xFFFF0000);
             btnForwarderToggle.setText("Start Forwarder");
         }
-        
+        String page = preferences.getString("txtPage", "POST");
         if(serverService.isAlive()) {
             txtReceiving.setText("Receiver On");
             btnReceiverToggle.setText("Stop Receiver");
